@@ -19,6 +19,7 @@
 
 [Как управлять вашими секретами с git-crypt / Хабр](https://habr.com/ru/companies/nixys/articles/570306/)
 
+[Windows 11 x64 скачать торрент](https://windows64.net/windows-11-x64-skachat-torrent/)
 # Books
 - asyncio
 - реальная криптография
