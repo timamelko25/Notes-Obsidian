@@ -471,7 +471,7 @@ class Base(AsyncAttrs, DeclarativeBase):
 - `autoincrement`
 - `unique`
 
-Указание `__tablename__`    указывает название для обращения к таблице в программе
+Указание `__tablename__`    указывает название для генерации
 
 ### Файл `service.py` базовый сервис для работы с бд
 

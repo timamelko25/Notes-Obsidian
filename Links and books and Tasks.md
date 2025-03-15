@@ -15,10 +15,6 @@
 [Installation - The Rust Programming Language](https://rust-book.cs.brown.edu/ch01-01-installation.html)
 [GitHub - rust-lang/rustlings: :crab: Small exercises to get you used to reading and writing Rust code!](https://github.com/rust-lang/rustlings/)
 
-[Как собрать своё портфолио для резюме начинающему программисту - YouTube](https://www.youtube.com/watch?v=r7I0ZXPVCVw)
-
-[Как управлять вашими секретами с git-crypt / Хабр](https://habr.com/ru/companies/nixys/articles/570306/)
-
 [Windows 11 x64 скачать торрент](https://windows64.net/windows-11-x64-skachat-torrent/)
 # Books
 - asyncio
