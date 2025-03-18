@@ -104,7 +104,7 @@ await - приостановка на время
 
 ```python 
 async def test() -> None
-	print('async epta')
+	print('async')
 
 result = asyncio.run(test())
 ```

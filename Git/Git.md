@@ -7,6 +7,9 @@ includeLinks: true # Make headings clickable
 hideWhenEmpty: false # Hide TOC if no headings are found
 debugInConsole: false # Print debug info in Obsidian console
 ```
+
+
+
 ## 🔹 Настройка имени пользователя и почты глобально
 
 ```

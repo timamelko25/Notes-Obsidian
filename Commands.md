@@ -318,5 +318,5 @@ r-- права остальных пользователей
 - **q** - выйти. 
 
 ```
-journalctl -xeu docker.service
+journalctl -fxeu docker.service
 ```
