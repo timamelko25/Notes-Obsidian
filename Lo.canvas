@@ -1,0 +1,13 @@
+{
+	"nodes":[
+		{"id":"10047c367fbdfe4a","type":"text","text":"Producer","x":-240,"y":-99,"width":133,"height":60,"color":"5"},
+		{"id":"9a5646d7414056e9","type":"text","text":"Queue","x":0,"y":-99,"width":250,"height":60,"color":"1"},
+		{"id":"995e10533434d784","type":"text","text":"Consumer 1","x":360,"y":-200,"width":250,"height":55,"color":"3"},
+		{"id":"cab28f7b872c8255","type":"text","text":"Consumer 2","x":360,"y":20,"width":250,"height":60,"color":"3"}
+	],
+	"edges":[
+		{"id":"e8ca2b079a000dbe","fromNode":"10047c367fbdfe4a","fromSide":"right","toNode":"9a5646d7414056e9","toSide":"left"},
+		{"id":"b82802ecdd76a877","fromNode":"9a5646d7414056e9","fromSide":"right","toNode":"cab28f7b872c8255","toSide":"left"},
+		{"id":"f8e0d55698256db8","fromNode":"9a5646d7414056e9","fromSide":"right","toNode":"995e10533434d784","toSide":"left"}
+	]
+}
