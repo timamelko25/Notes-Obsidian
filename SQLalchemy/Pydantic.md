@@ -1,12 +1,6 @@
-```table-of-contents
-title: 
-style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
-minLevel: 0 # Include headings from the specified level
-maxLevel: 0 # Include headings up to the specified level
-includeLinks: true # Make headings clickable
-hideWhenEmpty: false # Hide TOC if no headings are found
-debugInConsole: false # Print debug info in Obsidian console
-```
+- [Field](#field)
+- [Наследование Pydantic](#%D0%9D%D0%B0%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-pydantic)
+
 \- библиотека для валидации (проверка входных данных на соответствие ожидаемым типам и ограничениям) и трансформации данных (автоматическое приведение данных у нужному формату)
 
 Модели наследуются от базового класса `BaseModel`

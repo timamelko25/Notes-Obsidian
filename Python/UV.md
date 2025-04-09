@@ -1,3 +1,21 @@
+- [Install](#install)
+	- [Windows](#windows)
+	- [Linux](#linux)
+- [Update uv](#update-uv)
+- [Create project](#create-project)
+	- [Create new project](#create-new-project)
+	- [Create project in existing directory](#create-project-in-existing-directory)
+- [Install from requirements](#install-from-requirements)
+- [Run project](#run-project)
+- [Install package](#install-package)
+- [Remove package](#remove-package)
+- [Packages list](#packages-list)
+- [Install new python version](#install-new-python-version)
+- [Pip](#pip)
+- [UVX](#uvx)
+	- [Ruff](#ruff)
+		- [Run](#run)
+
 uv - package and virtual environments manager 
 
 ```table-of-contents

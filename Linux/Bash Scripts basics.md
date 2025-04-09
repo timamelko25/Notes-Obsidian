@@ -1,12 +1,21 @@
-```table-of-contents
-title: 
-style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
-minLevel: 0 # Include headings from the specified level
-maxLevel: 0 # Include headings up to the specified level
-includeLinks: true # Make headings clickable
-hideWhenEmpty: false # Hide TOC if no headings are found
-debugInConsole: false # Print debug info in Obsidian console
-```
+- [script.sh](#scriptsh)
+	- [Shebang line - строка шебанга. состоит из #!. Строка шебанга имеет следующий формат:](#shebang-line---%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0-%D1%88%D0%B5%D0%B1%D0%B0%D0%BD%D0%B3%D0%B0-%D1%81%D0%BE%D1%81%D1%82%D0%BE%D0%B8%D1%82-%D0%B8%D0%B7--%D0%A1%D1%82%D1%80%D0%BE%D0%BA%D0%B0-%D1%88%D0%B5%D0%B1%D0%B0%D0%BD%D0%B3%D0%B0-%D0%B8%D0%BC%D0%B5%D0%B5%D1%82-%D1%81%D0%BB%D0%B5%D0%B4%D1%83%D1%8E%D1%89%D0%B8%D0%B9-%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%82)
+	- [Variables](#variables)
+	- [User input](#user-input)
+	- [Conditional ```if``` statement](#conditional-if-statement)
+	- [Loops](#loops)
+	- [Functions](#functions)
+	- [Conditional Case Statement](#conditional-case-statement)
+	- [File operations](#file-operations)
+	- [Command line Arguments](#command-line-arguments)
+	- [Exit status code](#exit-status-code)
+	- [Index arrays](#index-arrays)
+	- [Associative Arrays](#associative-arrays)
+	- [Command Substituition](#command-substituition)
+	- [Arithmetic Operations](#arithmetic-operations)
+	- [Parameter Expansion](#parameter-expansion)
+	- [Process Signal Handing](#process-signal-handing)
+
 # script.sh
 ## Shebang line - строка шебанга. состоит из #!. Строка шебанга имеет следующий формат:
 #!_interpreter_ [_optional-arg_]

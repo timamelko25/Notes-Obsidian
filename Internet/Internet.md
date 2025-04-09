@@ -1,12 +1,41 @@
-```table-of-contents
-title: 
-style: nestedList # TOC style (nestedList|nestedOrderedList|inlineFirstLevel)
-minLevel: 0 # Include headings from the specified level
-maxLevel: 0 # Include headings up to the specified level
-includeLinks: true # Make headings clickable
-hideWhenEmpty: false # Hide TOC if no headings are found
-debugInConsole: false # Print debug info in Obsidian console
-```
+- [Виды сетевой топологии:](#%D0%92%D0%B8%D0%B4%D1%8B-%D1%81%D0%B5%D1%82%D0%B5%D0%B2%D0%BE%D0%B9-%D1%82%D0%BE%D0%BF%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8)
+	- [Как происходит запрос в гугл?](#%D0%9A%D0%B0%D0%BA-%D0%BF%D1%80%D0%BE%D0%B8%D1%81%D1%85%D0%BE%D0%B4%D0%B8%D1%82-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81-%D0%B2-%D0%B3%D1%83%D0%B3%D0%BB)
+- [Модели описывающие уровни протоколов:](#%D0%9C%D0%BE%D0%B4%D0%B5%D0%BB%D0%B8-%D0%BE%D0%BF%D0%B8%D1%81%D1%8B%D0%B2%D0%B0%D1%8E%D1%89%D0%B8%D0%B5-%D1%83%D1%80%D0%BE%D0%B2%D0%BD%D0%B8-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%D0%BE%D0%B2)
+	- [OSI](#osi)
+	- [TCP/IP](#tcpip)
+		- [Уровни](#%D0%A3%D1%80%D0%BE%D0%B2%D0%BD%D0%B8)
+		- [Общая схема передачи.](#%D0%9E%D0%B1%D1%89%D0%B0%D1%8F-%D1%81%D1%85%D0%B5%D0%BC%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D0%B4%D0%B0%D1%87%D0%B8)
+- [Высокоуровневых протоколы](#%D0%92%D1%8B%D1%81%D0%BE%D0%BA%D0%BE%D1%83%D1%80%D0%BE%D0%B2%D0%BD%D0%B5%D0%B2%D1%8B%D1%85-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%D1%8B)
+	- [HTTP (HyperText Transport Protocol)](#http-hypertext-transport-protocol)
+		- [Структура запросов](#%D0%A1%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2)
+		- [Примеры заголовков запроса:](#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B-%D0%B7%D0%B0%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BA%D0%BE%D0%B2-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0)
+		- [Примеры заголовков ответа:](#%D0%9F%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D1%8B-%D0%B7%D0%B0%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BA%D0%BE%D0%B2-%D0%BE%D1%82%D0%B2%D0%B5%D1%82%D0%B0)
+		- [HTTPS](#https)
+	- [DNS (Domain Name System)](#dns-domain-name-system)
+		- [Типы записей DNS-сервера](#%D0%A2%D0%B8%D0%BF%D1%8B-%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B5%D0%B9-dns-%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%D0%B0)
+	- [POP3 (Post Office Protocol Version 3)](#pop3-post-office-protocol-version-3)
+	- [IMAP (Internet Message Access Protocol)](#imap-internet-message-access-protocol)
+	- [SMTP (Simple Mail Transfer Protocol)](#smtp-simple-mail-transfer-protocol)
+	- [Telnet (Terminal Network)](#telnet-terminal-network)
+	- [SSH (Secure Shell)](#ssh-secure-shell)
+	- [FTP (File Transfer Protocol)](#ftp-file-transfer-protocol)
+	- [TFTP (Trivial File Transfer Protocol)](#tftp-trivial-file-transfer-protocol)
+- [Протоколы транспортного уровня](#%D0%9F%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB%D1%8B-%D1%82%D1%80%D0%B0%D0%BD%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BD%D0%BE%D0%B3%D0%BE-%D1%83%D1%80%D0%BE%D0%B2%D0%BD%D1%8F)
+	- [UDP (User Datagram Protocol)](#udp-user-datagram-protocol)
+	- [TCP (Transmissin Control Protocol)](#tcp-transmissin-control-protocol)
+- [Сетевой уровень](#%D0%A1%D0%B5%D1%82%D0%B5%D0%B2%D0%BE%D0%B9-%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C)
+	- [IP (Internet Protocol)](#ip-internet-protocol)
+		- [IPv4](#ipv4)
+		- [Частные IP-диапазоны](#%D0%A7%D0%B0%D1%81%D1%82%D0%BD%D1%8B%D0%B5-ip-%D0%B4%D0%B8%D0%B0%D0%BF%D0%B0%D0%B7%D0%BE%D0%BD%D1%8B)
+		- [Глобальные IP-адреса](#%D0%93%D0%BB%D0%BE%D0%B1%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-ip-%D0%B0%D0%B4%D1%80%D0%B5%D1%81%D0%B0)
+		- [NAT (Network Address Tranlator)](#nat-network-address-tranlator)
+	- [ICMP (Internet Control Message Protocol)](#icmp-internet-control-message-protocol)
+	- [ARP (Address Resolution Protocol)](#arp-address-resolution-protocol)
+	- [DHCP (Dynamic Host Confuguration Protocol)](#dhcp-dynamic-host-confuguration-protocol)
+- [Канальный уровень](#%D0%9A%D0%B0%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9-%D1%83%D1%80%D0%BE%D0%B2%D0%B5%D0%BD%D1%8C)
+	- [Ethernet протокол](#ethernet-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB)
+
+
 **CDN** (**Content** **Delivery** **Network**) - это географически распределённая сетевая инфраструктура, обеспечивающая быструю доставку контента пользователям веб-сервисов и сайтов. Входящие в состав CDN cерверы географически располагаются таким образом, чтобы сделать время ответа для пользователей сайта/сервиса минимальным.
 
 **Ориджин (origin)** — сервер, на котором хранятся исходные файлы или данные, раздаваемые через CDN.  
