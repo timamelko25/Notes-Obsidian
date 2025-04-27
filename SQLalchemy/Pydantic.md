@@ -41,13 +41,13 @@ class SUser(Basemodel):
 from pydantic import BaseModel, ConfigDict
 
 class SUser(BaseModel):
-	config = ConfigDict(from_attributes=True)
+	model_config = ConfigDict(from_attributes=True)
 	
 	age: int
 	
 ```
 
-Создание модели Pydantioc из ORM используется метод `from_orm`:
+Создание модели Pydantic из ORM используется метод `from_orm`:
 
 ```python
 user = user.from_orm(orm_instance)

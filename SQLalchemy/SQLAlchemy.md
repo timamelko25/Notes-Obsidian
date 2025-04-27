@@ -398,6 +398,7 @@ class BaseService:
 5. `add()` - размещение экземпляра в сессии
 6. `add_all()` - добавление списка элементов в сессию
 7. `delete()` - помещает экземпляр в список объектов сессии, которые должны быть помечены на удаление
+8. `get()` - быстрое получение одной записи по первичному ключу
 
 https://django.fun/docs/sqlalchemy/2.0/orm/session_basics/
 
@@ -431,6 +432,82 @@ query = select(Users).options(joinloaded(User.profile))
 3. `scalars.first()` - возвращение первой записи объекта модели. None если ничего не найдет
 4. `scalar()` - одна запись и одно поле в результате запроса. если вернется больше то вызовется исключение 
 5. `scalar_one()` / `scalar_one_or_none()` - возвращает одно значение, если запрос вернет больше одной строки то произойдет ошибка / будет одна запись или ничего
+
+#### Каскады
+Механизм для работы с зависимыми объектами при выполнении операции с родительским объектом.
+Указываются в `relationship`.
+
+Для указания нескольких
+
+```python
+cascade="save-update, merge, delete, delete-orphan"
+
+# OR
+
+from sqlalchemy.orm import Cascade
+
+cascade=Cascade.SAVE_UPDATE, Cascade.DELETE
+```
+
+```python
+from sqlalchemy.orm import relationship
+
+class Parent(Base):
+    __tablename__ = 'parent'
+    id = Column(Integer, primary_key=True)
+    children = relationship("Child", cascade="all, delete-orphan")
+
+class Child(Base):
+    __tablename__ = 'child'
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey('parent.id'))
+```
+
+`cascade-"all"` - включает все каскады кроме `delete-orphan`. Для зависимых товаров как правило указывается
+`cascade="all, delete-orphan"`.
+
+`passive_deletes=True` - параметр в `relationship`. Использование `ON DELETE CASCADE` при удалении, если есть поддержка в бд.
+
+Стандартные типы каскадов:
+- `save-update` - автоматическое добавление в сессию дочерних объектов.
+```python
+parent = Parent()
+child = Child()
+parent.children.append(child)
+
+# Автоматически child добавится в сессию при добавлении parent
+session.add(parent)
+session.commit()
+```
+- `merge` - объединяет изменения дочерних объектов при `session.merge()`
+```python
+detached_parent = Parent(id=1)
+merged_parent = session.merge(detached_parent)
+
+# Все дочерние объекты parent также будут замёржены
+```
+- `expunge` - удаляет дочерние объекты из сессии при удалении родителя `session.expunge()`
+```python
+session.expunge(parent)
+# parent и все его дочерние объекты удалены из сессии (без удаления из БД)
+```
+- `delete` - удаляет дочерние объекты из БД при удалении родителя
+```python
+session.delete(parent)
+# parent и все его дочерние объекты удалятся из БД
+session.commit()
+```
+- `delete-orphan` - удаляет дочерние объекты, при удалении родителя. ! Всегда требует наличия обратной ссылки или foreign key
+```python
+child.parent = None
+session.commit()
+# Если у child нет родителя, он будет удалён из базы
+```
+- `refresh-expire` - обновляет дочерние объекты при `session.refresh()`
+```python
+session.refresh(parent)
+# Автоматически дочерние объекты также обновятся из БД
+```
 # Типы связей таблицы examples
 ## ForeignKey
 
@@ -531,3 +608,4 @@ class UsersModel(Base):
         lazy="selectin",
         )
 ```
+
