@@ -508,6 +508,7 @@ session.commit()
 session.refresh(parent)
 # Автоматически дочерние объекты также обновятся из БД
 ```
+https://django.fun/docs/sqlalchemy/2.0/orm/cascades/
 # Типы связей таблицы examples
 ## ForeignKey
 
