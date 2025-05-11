@@ -1,0 +1,17 @@
+{
+	"nodes":[
+		{"id":"f80ecb5ceee46ff9","type":"text","text":"Linux Server\n(Linux exporter)\nhttp://10.0.0.1:9100/metrics","x":140,"y":60,"width":320,"height":100},
+		{"id":"c76512f4003c1150","type":"text","text":"Linux Server\n(Linux exporter)\nhttp://10.0.0.1:9100/metrics","x":140,"y":-90,"width":320,"height":100},
+		{"id":"ace165a9cb1d0b47","type":"text","text":"Linux Server\n(Linux exporter)\nhttp://10.0.0.1:9100/metrics","x":140,"y":-250,"width":320,"height":100},
+		{"id":"74c5607da6aee4f2","type":"text","text":"Prometheus Server\nhttp://10.0.0.0:9000","x":-260,"y":-90,"width":290,"height":100},
+		{"id":"712634957593e9a5","x":-600,"y":-70,"width":250,"height":60,"color":"5","type":"text","text":"Grafana (визуализатор)"},
+		{"id":"40ac56742684034b","x":-440,"y":-400,"width":250,"height":60,"color":"1","type":"text","text":"Сбор метрик и анализ"},
+		{"id":"e5cac3993058112a","x":-80,"y":-400,"width":300,"height":60,"color":"1","type":"text","text":"Сбор метрик из приложений"}
+	],
+	"edges":[
+		{"id":"9d022fec0225feee","fromNode":"74c5607da6aee4f2","fromSide":"right","toNode":"ace165a9cb1d0b47","toSide":"left"},
+		{"id":"57d6d5af6c998cae","fromNode":"74c5607da6aee4f2","fromSide":"right","toNode":"c76512f4003c1150","toSide":"left"},
+		{"id":"6a02630714b583ed","fromNode":"74c5607da6aee4f2","fromSide":"right","toNode":"f80ecb5ceee46ff9","toSide":"left"},
+		{"id":"a9482d4059112f00","fromNode":"712634957593e9a5","fromSide":"right","toNode":"74c5607da6aee4f2","toSide":"left"}
+	]
+}
