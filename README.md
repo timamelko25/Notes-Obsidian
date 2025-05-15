@@ -30,4 +30,4 @@ Monitoring
 [[Graphana]]
 
 Web Architectures
-[[REST]]
+[[REST API]]
