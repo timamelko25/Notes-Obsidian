@@ -19,7 +19,7 @@ from app.db.models import User, Key, Server
 	- указание конфига для подключения
 
 ```python
-config = contex.config
+config = context.config
 config.set_main_option("sqlalchemy.url", DATABASE_URL)
 ```
 

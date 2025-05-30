@@ -1,6 +1,7 @@
-- [Curl](#curl)
+- [curl](#curl)
 - [wget](#wget)
 - [zip](#zip)
+- [unzip](#unzip)
 - [tar](#tar)
 - [ls](#ls)
 - [mv](#mv)
@@ -10,317 +11,990 @@
 - [find](#find)
 - [chmod](#chmod)
 - [journalctl](#journalctl)
+- [df](#df)
+- [du](#du)
+- [smartctl](#smartctl)
+- [top](#top)
+- [ps](#ps)
+- [systemctl](#systemctl)
+- [strace](#strace)
+- [netstat](#netstat)
+- [ss](#ss)
+- [ip](#ip)
+- [traceroute](#traceroute)
+- [mtr](#mtr)
+- [dig](#dig)
+- [tcpdump](#tcpdump)
+- [dmesg](#dmesg)
+- [ssh](#ssh)
+- [scp](#scp)
+- [ping](#ping)
+- [cat](#cat)
+- [less](#less)
+- [tail](#tail)
+- [head](#head)
+- [sort](#sort)
+- [uniq](#uniq)
+- [wc](#wc)
+- [sed](#sed)
+- [awk](#awk)
+- [mount](#mount)
+- [umount](#umount)
+- [rsync](#rsync)
+- [crontab](#crontab)
+- [kill](#kill)
+- [watch](#watch)
+- [screen](#screen)
+- [htop](#htop)
+- [free](#free)
+- [who](#who)
+- [uptime](#uptime)
 
-# Curl
-curl базовый протокол HTTP
-скачать файл
-`--output` [file_name]
+## curl
 
-```
-curl -L www.likegeeks.com --output likegeeks.html
-```
- `-L` - (позволяет обработать редирект при скачивании, почти всегда при скачивании файла)
-`-C` - (позволяет продолжить прерванное скачивание файла, дефис после показывает с какого места продолжить скачивание)
-`-m` [seconds] (по истечению времени прервать выполнение)
-`--connect-timeout` [seconds] (сколько секунд держать открытое соединение)
-`-u` username:password авторизация при подключении, чаще всего используется при аутентификации на ftp (file transport protocol) сервер
-`-x` 192.168.1.1:8080 перед обращением на сайт будет выполняться подключение через прокси сервер
-`--cert` path/to/cert.crt:password
-`-s` тихий режим, не выводит ничего в ответ
-`-O` будет сохранен результат выполнения в текущую директорию
-`-I` вывести заголовки
-`-H` передача заголовка, при передачи нескольких заголовков перед каждый нужно указать ключ
-`-d` передать POST запрос 
-```
-curl -d 'name=geek&location=usa' http://example.com
-```
-`-d` @filename передать файл
-`-T` загрузить файл через FTP
-`-X` "method" с каким методом сделать запрос
-`--location` "full_addres"
+**Description:** Transfers data to/from servers using protocols like HTTP, HTTPS, and FTP, ideal for downloads and API requests.
 
-# wget
-wget "link" - скачать файл
-- **-b** **(--background)** - работать в фоновом режиме
-- **-o** **файл** **(--out-file)** - указать лог файл
-- **-d** **(--debug)** - включить режим отладки
-- **-v (--verbose)** - выводить максимум информации о работе утилиты
-- **-q (--quiet)** - выводить минимум информации о работе
-- **-i** **файл (--input-file)** - прочитать URL из файла
-- **--force-html** - читать файл указанный в предыдущем параметре как html
-- **-t (--tries)** - количество попыток подключения к серверу
-- **-O файл** **(--output-document)** - файл в который будут сохранены полученные данные
-- **-с (--continue)** - продолжить ранее прерванную загрузку
-- **-S (--server-response)** - вывести ответ сервера
-- **--spider** - проверить работоспособность URL
-- **-T время (--timeout)** - таймаут подключения к серверу
-- **--limit-rate** - ограничить скорость загрузки
-- **-w (--wait)** - интервал между запросами
-- **-Q** **(--quota)** - максимальный размер загрузки
-- **-4 (--inet4only)** - использовать протокол ipv4
-- **-6 (--inet6only)** - использовать протокол ipv6
-- **-U (--user-agent)**- строка USER AGENT отправляемая серверу
-- **-r** (**--recursive**)- рекурсивная работа утилиты
-- **-l (--level)** - глубина при рекурсивном сканировании
-- **-k** **(--convert-links)** - конвертировать ссылки в локальные при загрузке страниц
-- **-P (--directory-prefix)** - каталог, в который будут загружаться файлы
-- **-m** **(--mirror)** - скачать сайт на локальную машину
-- **-p** **(--page-requisites)** - во время загрузки сайта скачивать все необходимые ресурсы
-- --http-user=username
-- –http-password=password
-- --ftp-user=username
-- --ftp-password=password
+**Key Options:**
 
-```
-wget https://github.com/seladb/PcapPlusPlus/releases/download/v24.09/pcapplusplus-24.09-ubuntu-22.04-intel-2024.2.0-x86_64.tar.gz
+- `-L`: Follows HTTP redirects.
+- `--output [file]`: Saves output to a file.
+- `-C -`: Resumes interrupted downloads.
+- `-m [seconds]`: Sets maximum operation time.
+- `-s`: Silent mode (no progress output).
+- `-O`: Saves with remote file name.
+- `-I`: Fetches HTTP headers only.
+- `-H [header]`: Adds custom headers.
+- `-d [data]`: Sends POST data.
+- `-T [file]`: Uploads a file.
+
+**Example:**
+
+```bash
+curl -L https://example.com --output example.html
 ```
 
-# zip
-**$ zip опции файлы**
+---
 
-**$ unzip опции архив**
+## wget
 
-- **-d** удалить файл из архива
-- **-r** - рекурсивно обходить каталоги
-- **-0** - только архивировать, без сжатия
-- **-9** - наилучший степень сжатия
-- **-F** - исправить zip файл
-- **-e** - шифровать файлы
-```
-zip -r /path/to/files/*
-```
+**Description:** Downloads files from HTTP, HTTPS, or FTP, supporting resuming and recursive downloads.
 
-```
-unzip archive.zip
-```
+**Key Options:**
 
-# tar
-**tar опцииf файл_для_записи /папка_файлами_для_архива**
-- **A** - добавить файл к архиву
-- **c** - создать архив в linux
-- **d** - сравнить файлы архива и распакованные файлы в файловой системе
-- **j** - сжать архив с помощью Bzip
-- **z** - сжать архив с помощью Gzip
-- **r** - добавить файлы в конец архива
-- **t** - показать содержимое архива
-- **u** - обновить архив относительно файловой системы
-- **x** - извлечь файлы из архива
-- **v** - показать подробную информацию о процессе работы
-- **f** - файл для записи архива
-- **-C** - распаковать в указанную папку
-- **--strip-components** - отбросить n вложенных папок
+- `-b`: Runs in background.
+- `-o [file]`: Logs to a file.
+- `-q`: Quiet mode.
+- `-i [file]`: Reads URLs from a file.
+- `-t [number]`: Sets retry attempts.
+- `-O [file]`: Specifies output file.
+- `-c`: Resumes partial downloads.
+- `-r`: Enables recursive download.
+- `-m`: Mirrors a website.
 
-```
- tar -cvf archive.tar /path/to/files
+**Example:**
+
+```bash
+wget -c https://example.com/file.tar.gz
 ```
 
-разархивировать
-```
-tar -xvf archive.tar.gz
-```
+---
 
-# ls
-**$ ls опции /путь/к/папке**
+## zip
 
-- **-a** - отображать все файлы, включая скрытые, это те, перед именем которых стоит точка;
-- **-A** - не отображать ссылку на текущую папку и корневую папку . и ..;
-- **--author** - выводить создателя файла в режиме подробного списка;
-- **-b** - выводить Escape последовательности вместо непечатаемых символов;
-- **--block-size** - выводить размер каталога или файла в определенной единице измерения, например, мегабайтах M, гигабайтах G или килобайтах K;
-- **-B** - не выводить резервные копии, их имена начинаются с ~;
-- **-c** - сортировать файлы по времени модификации или создания, сначала будут выведены новые файлы;
-- **-C** - выводить колонками;
-- **--color** - включить цветной режим вывода, автоматически активирована во многих дистрибутивах;
-- **-d** - выводить только директории, без их содержимого, полезно при рекурсивном выводе;
-- **-D** - использовать режим вывода, совместимый с Emacs;
-- **-f** - не сортировать;
-- **-F** - показывать тип объекта, к каждому объекту будет добавлен один из специализированных символов */=>@|;
-- **--full-time** - показывать подробную информацию, плюс вся информация о времени в формате ISO;
-- **-g** - показывать подробную информацию, но кроме владельца файла;
-- **--group-directories-first** - сначала отображать директории, а уже потом файлы;
-- **-G** - не выводить имена групп;
-- **-h** - выводить размеры папок в удобном для чтения формате;
-- **-H** - открывать символические ссылки при рекурсивном использовании;
-- **--hide** - не отображать файлы, которые начинаются с указанного символа;
-- **-i** - отображать номер индекса inode, в которой хранится этот файл;
-- **-l** - выводить подробный список, в котором будет отображаться владелец, группа, дата создания, размер и другие параметры;
-- **-L** - для символических ссылок отображать информацию о файле, на который они ссылаются;
-- **-m** - разделять элементы списка запятой;
-- **-n** - выводить UID и GID вместо имени и группы пользователя;
-- **-N** - выводить имена как есть, не обрабатывать контролирующие последовательности;
-- **-Q** - брать имена папок и файлов в кавычки;
-- **-r** - обратный порядок сортировки;
-- **-R** - рекурсивно отображать содержимое поддиректорий;
-- **-s** - выводить размер файла в блоках;
-- **-S** - сортировать по размеру, сначала большие;
-- **-t** - сортировать по времени последней модификации;
-- **-u** - сортировать по времени последнего доступа;
-- **-U** - не сортировать;
-- **-X** - сортировать по алфавиту;
-- **-Z** - отображать информацию о расширениях SELinux;
-- **-1** - отображать один файл на одну строку.
+**Description:** Creates compressed `.zip` archives from files or directories.
 
-# mv
-|                                        |                                                                                                                       |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| _-b_ или _—backup_ или _—backup=МЕТОД_ | Создает копию файлов, которые были перемещены или перезаписаны                                                        |
-| _-f_                                   | При активации не будет спрашивать разрешение у владельца файла, если речь идет о перемещении или переименовании файла |
-| _-i_                                   | Наоборот, будет спрашивать разрешение у владельца                                                                     |
-| _-n_                                   | Отключает перезапись уже существующих объектов                                                                        |
-| _—strip-trailing-slashes_              | Удаляет завершающий символ / у файла при его наличии                                                                  |
-| _-t ДИРЕКТОРИЯ_                        | Перемещает все файлы в указанную директорию                                                                           |
-| _-u_                                   | Осуществляет перемещение только в том случае, если исходный файл новее объекта назначения                             |
-| _-v_                                   | Отображает сведения о каждом элементе во время обработки команды                                                      |
+**Key Options:**
 
-```
-mv myfile1.txt mydir/
+- `-r`: Recursively includes directories.
+- `-0`: Stores without compression.
+- `-9`: Uses maximum compression.
+- `-e`: Encrypts with a password.
+- `-d`: Deletes files from archive.
+
+**Example:**
+
+```bash
+zip -r archive.zip /path/to/files
 ```
 
-# cp
-# rm
+---
 
-ip link show - просмотр сетевых интерфейсов
-ip -br link show - сокращенная инфромация
+## unzip
 
-find / -type f -name "main.cpp" - поиск файлов в системе
+**Description:** Extracts files from `.zip` archives.
 
-# grep
-$ grep [опции] шаблон [<путь к файлу или папке>] - поиск внутри файлов
-для поиска начало строки ^
-```
-grep ‘^T’ poem.txt
-```
+**Key Options:**
 
+- `-l`: Lists archive contents.
+- `-d [dir]`: Extracts to a directory.
+- `-P [password]`: Decrypts with a password.
 
-для поиска в начале слова '\\b ...' or \\<
- для поиска в конце слова '... \\b' or $
-```
-grep ‘\bd’ poem.txt
-grep ‘d\b’ poem.txt
-```
--e для расширенных опций
-- + - одно или более повторений предыдущего символа
-- ? - ноль или более повторения предыдущего символа
-- {n, m} - от n до m повторений предыдущего символа
-- | - объединение нескольких паттернов
-```
-grep -E ‘l+|d{1,2}’ poem.txt
+**Example:**
+
+```bash
+unzip archive.zip -d /tmp
 ```
 
+---
 
--i  - не учитывать регистр
--w - поиск полного совпадения
--v - поиск строк без вхождения конкретного символа
--n - вывод строки где совпадение
--r - рекурсивный поиск
--l - пропуск двоичных файлов
--s - пропуск файлов суперпользователей и скрытие ошибок
--include - включение определенных файлов для поиска --include "\*.log"
--exclude - исключить файлы от поиска
--c - узнать общее количество строк вхождения
--l - узнать имя файла где есть вхождение
-\-\-color=always - цветное выделение совпадения
+## tar
 
-grep -w "main.cpp" - поиск внутри файлов
+**Description:** Archives files into `.tar` format, often with gzip or bzip2 compression.
 
-# find
+**Key Options:**
 
-# chmod
-**$ chmod опции права /путь/к/файлу**
+- `-c`: Creates an archive.
+- `-x`: Extracts files.
+- `-z`: Uses gzip compression.
+- `-j`: Uses bzip2 compression.
+- `-v`: Verbose output.
+- `-f [file]`: Specifies archive file.
+- `-t`: Lists contents.
+- `-C [dir]`: Changes directory for extraction.
 
-- **r** - чтение;
-- **w** - запись;
-- **x** - выполнение;
-- **s** - выполнение  от имени суперпользователя (дополнительный);
+**Example:**
 
-
-- **u** - владелец файла;
-- **g** - группа файла;
-- **o** - все остальные пользователи;
-
-Синтаксис настройки прав такой:
-
-**группа_пользователей:действие:вид_прав**
-
-- **u+x** - разрешить выполнение для владельца;
-- **ugo+x** - разрешить выполнение для всех;
-- **ug+w** - разрешить запись для владельца и группы;
-- **o-x** - запретить выполнение для остальных пользователей;
-- **ugo+rwx** - разрешить все для всех;
-
-Права на папку linux такие же, как и для файла. Во время установки прав сначала укажите цифру прав для владельца, затем для группы, а потом для остальных. Например, :
-
-- **744** - разрешить все для владельца, а остальным только чтение;
-- **755** - все для владельца, остальным только чтение и выполнение;
-- **764** - все для владельца, чтение и запись для группы, и только чтение для остальных;
-- **777** - всем разрешено все.
-
- ```
- -rw-r--r-- 1 crushhh crushhh    0 Feb 22 20:35 chmod_test
- drwxr-xr-x 3 crushhh crushhh 4096 Feb 17 02:29 asd
+```bash
+tar -czvf archive.tar.gz /path/to/files
 ```
 
-1 символ - значит что файл, d - папка
-rw- права владельца
-r-- права группы
-r-- права остальных пользователей
-чтение запись выполнить
+---
 
+## ls
 
-# journalctl
-**journalctl опции**
+**Description:** Lists directory contents.
 
-- **--full, -l** - отображать все доступные поля;
-- **--all, -a** - отображать все поля в выводе full, даже если они содержат непечатаемые символы или слишком длинные;
-- **--pager-end, -e** - отобразить только последние сообщения из журнала;
-- **--lines, -n** - количество строк, которые нужно отображать на одном экране, по умолчанию 10;
-- **--no-tail** - отображать все строки доступные строки;
-- **--reverse, -r** - отображать новые события в начале списка;
-- **--output, -o** - настраивает формат вывода лога;
-- **--output-fields** - поля, которые нужно выводить;
-- **--catalog, -x** - добавить к информации об ошибках пояснения, ссылки на документацию или форумы там, где это возможно;
-- **--quiet, -q** - не показывать все информационные сообщения;
-- **--merge, -m** - показывать сообщения из всех доступных журналов;
-- **--boot, -b** - показать сообщения с момента определенной загрузки системы. По умолчанию используется последняя загрузка;
-- **--list-boots** - показать список сохраненных загрузок системы;
-- **--dmesg, -k** - показывает сообщения только от ядра. Аналог вызова команды dmesg;
-- **--identifier, -t** - показать сообщения с выбранным идентификатором;
-- **--unit, -u** - показать сообщения от выбранного сервиса;
-- **--user-unit** - фильтровать сообщения от выбранной сессии;
-- **--priority, -p** - фильтровать сообщения по их приоритету. Есть восемь уровней приоритета, от 0 до 7;
-- **--grep, -g** - фильтрация по тексту сообщения;
-- **--cursor, -c** - начать просмотр сообщений с указанного места;
-- **--since, -S, --until, -U** - фильтрация по дате и времени;
-- **--field, -F** - вывести все данные из выбранного поля;
-- **--fields, -N** - вывести все доступные поля;
-- **--system** - выводить только системные сообщения;
-- **--user** - выводить только сообщения пользователя;
-- **--machine, -M** - выводить сообщения от определенного контейнера;
-- **--header** - выводить заголовки полей при выводе журнала;
-- **--disk-usage** - вывести общий размер лог файлов на диске;
-- **--list-catalog** - вывести все доступные подсказки для ошибок;
-- **--sync** - синхронизировать все не сохраненные журналы с файловой системой;
-- **--flush** - перенести все данные из каталога /run/log/journal в /var/log/journal;
-- **--rotate** - запустить ротацию логов;
-- **--no-pager** - выводить информацию из журнала без возможности листать страницы;
-- **-f** - выводить новые сообщения в реальном времени, как в команде tail;
-- **--vacuum-time** - очистить логи, давностью больше указанного периода;
-- **--vacuum-size** - очистить логи, чтобы размер хранилища соответствовал указанному.
+**Key Options:**
 
+- `-a`: Shows hidden files.
+- `-l`: Long format (permissions, owner, size).
+- `-h`: Human-readable sizes.
+- `-R`: Recursively lists subdirectories.
+- `-t`: Sorts by modification time.
+- `-S`: Sorts by size.
 
-- **Стрелка вниз, Enter, e** или **j** - переместиться вниз на одну строку;
-- **Стрелка вверх, y** или **k** - переместиться на одну строку вверх;
-- **Пробел** - переместиться на одну страницу вниз;
-- **b** - переместиться на одну страницу вверх;
-- **Стрелка вправо, стрелка влево** - горизонтальна прокрутка;
-- **g** - перейти на первую строку;
-- **G** - перейти на последнюю строку;
-- **p** - перейти на позицию нужного процента сообщений. Например, 50p перенесет курсор на середину вывода;
-- **/** - поиск по журналу;
-- **n** - найти следующее вхождение;
-- **N** - предыдущее вхождение;
-- **q** - выйти. 
+**Example:**
 
+```bash
+ls -lah
 ```
-journalctl -fxeu docker.service
+
+---
+
+## mv
+
+**Description:** Moves or renames files/directories.
+
+**Key Options:**
+
+- `-f`: Forces overwrite without prompting.
+- `-i`: Prompts before overwriting.
+- `-n`: Prevents overwriting.
+- `-u`: Moves only if source is newer.
+- `-v`: Verbose output.
+
+**Example:**
+
+```bash
+mv file.txt /new/location/
 ```
+
+---
+
+## cp
+
+**Description:** Copies files or directories.
+
+**Key Options:**
+
+- `-r`: Copies directories recursively.
+- `-a`: Preserves file attributes.
+- `-i`: Prompts before overwriting.
+- `-u`: Copies only newer files.
+- `-v`: Verbose output.
+
+**Example:**
+
+```bash
+cp -r src/ dest/
+```
+
+---
+
+## rm
+
+**Description:** Deletes files or directories.
+
+**Key Options:**
+
+- `-r`: Deletes recursively.
+- `-f`: Forces deletion without prompts.
+- `-i`: Prompts before deletion.
+- `-v`: Shows deleted files.
+
+**Example:**
+
+```bash
+rm -rf mydir
+```
+
+---
+
+## grep
+
+**Description:** Searches text patterns in files or input using regular expressions.
+
+**Key Options:**
+
+- `-i`: Ignores case.
+- `-w`: Matches whole words.
+- `-v`: Inverts match.
+- `-n`: Shows line numbers.
+- `-r`: Searches recursively.
+- `-l`: Lists filenames with matches.
+- `-c`: Counts matches.
+
+**Example:**
+
+```bash
+grep -r "error" /var/log
+```
+
+---
+
+## find
+
+**Description:** Searches files by name, type, or size.
+
+**Key Options:**
+
+- `-name [pattern]`: Matches filename.
+- `-type [f|d]`: Filters by file (`f`) or directory (`d`).
+- `-size [+|-n]`: Filters by size (e.g., `+10M`).
+- `-mtime [n]`: Filters by modification time.
+- `-exec [cmd]`: Runs command on results.
+
+**Example:**
+
+```bash
+find / -type f -name "*.cpp"
+```
+
+---
+
+## chmod
+
+**Description:** Changes file/directory permissions.
+
+**Key Options:**
+
+- `-R`: Applies recursively.
+- `-v`: Shows changes.
+- Permissions: `r` (read=4), `w` (write=2), `x` (execute=1).
+- Users: `u` (owner), `g` (group), `o` (others).
+
+**Example:**
+
+```bash
+chmod 755 script.sh
+```
+
+---
+
+## journalctl
+
+**Description:** Views systemd journal logs.
+
+**Key Options:**
+
+- `-f`: Follows logs in real-time.
+- `-u [unit]`: Filters by service.
+- `-b`: Shows logs from current boot.
+- `-r`: Reverses output.
+- `-p [0-7]`: Filters by priority.
+- `-n [lines]`: Limits to last `n` lines.
+
+**Example:**
+
+```bash
+journalctl -u nginx -f
+```
+
+---
+
+## df
+
+**Description:** Displays disk space usage for filesystems.
+
+**Key Options:**
+
+- `-h`: Human-readable sizes.
+- `-i`: Shows inode usage.
+
+**Example:**
+
+```bash
+df -h
+```
+
+---
+
+## du
+
+**Description:** Estimates file/directory disk usage.
+
+**Key Options:**
+
+- `-h`: Human-readable sizes.
+- `-s`: Summarizes total size.
+- `-c`: Shows grand total.
+
+**Example:**
+
+```bash
+du -sh /tmp
+```
+
+---
+
+## smartctl
+
+**Description:** Monitors disk health using SMART data.
+
+**Key Options:**
+
+- `-a`: Shows all SMART data.
+- `-H`: Displays health status.
+- `-i`: Shows disk info.
+
+**Example:**
+
+```bash
+smartctl -a /dev/sda
+```
+
+---
+
+## top
+
+**Description:** Monitors system processes in real-time.
+
+**Key Options:**
+
+- `-d [seconds]`: Sets refresh interval.
+- `-u [user]`: Filters by user.
+- `-n [iterations]`: Limits updates.
+
+**Example:**
+
+```bash
+top
+```
+
+---
+
+## ps
+
+**Description:** Lists current processes.
+
+**Key Options:**
+
+- `aux`: Shows all processes in user format.
+- `-e`: Shows every process.
+- `-f`: Full-format listing.
+
+**Example:**
+
+```bash
+ps aux
+```
+
+---
+
+## systemctl
+
+**Description:** Manages systemd services.
+
+**Key Options:**
+
+- `start/stop/restart [service]`: Controls a service.
+- `status [service]`: Shows service status.
+- `enable/disable [service]`: Manages boot behavior.
+
+**Example:**
+
+```bash
+systemctl restart sshd
+```
+
+---
+
+## strace
+
+**Description:** Traces system calls for debugging.
+
+**Key Options:**
+
+- `-p [pid]`: Attaches to a process.
+- `-o [file]`: Writes output to a file.
+- `-f`: Traces child processes.
+
+**Example:**
+
+```bash
+strace -p 1234
+```
+
+---
+
+## netstat
+
+**Description:** Shows network connections and stats.
+
+**Key Options:**
+
+- `-t`: TCP connections.
+- `-u`: UDP connections.
+- `-l`: Listening sockets.
+- `-n`: Numeric addresses.
+- `-p`: Shows process IDs.
+
+**Example:**
+
+```bash
+netstat -tulnp
+```
+
+---
+
+## ss
+
+**Description:** Displays socket statistics.
+
+**Key Options:**
+
+- `-l`: Listening sockets.
+- `-n`: Numeric output.
+- `-t`: TCP sockets.
+- `-u`: UDP sockets.
+
+**Example:**
+
+```bash
+ss -lntu
+```
+
+---
+
+## ip
+
+**Description:** Manages network interfaces and routes.
+
+**Key Options:**
+
+- `a`: Lists interfaces.
+- `r`: Shows routing table.
+- `-br`: Brief output.
+
+**Example:**
+
+```bash
+ip a
+```
+
+---
+
+## traceroute
+
+**Description:** Traces packet routes to a host.
+
+**Key Options:**
+
+- `-n`: Numeric output (no DNS).
+- `-m [hops]`: Sets max hops.
+
+**Example:**
+
+```bash
+traceroute -n 8.8.8.8
+```
+
+---
+
+## mtr
+
+**Description:** Combines `ping` and `traceroute` for real-time diagnostics.
+
+**Key Options:**
+
+- `-r`: Report mode.
+- `-c [count]`: Limits packets.
+
+**Example:**
+
+```bash
+mtr 8.8.8.8
+```
+
+---
+
+## dig
+
+**Description:** Queries DNS records.
+
+**Key Options:**
+
+- `+short`: Concise output.
+- `[type]`: Specifies record type (e.g., `MX`).
+
+**Example:**
+
+```bash
+dig example.com
+```
+
+---
+
+## tcpdump
+
+**Description:** Captures network packets.
+
+**Key Options:**
+
+- `-i [interface]`: Specifies interface.
+- `-n`: Numeric addresses.
+- `-w [file]`: Saves to file.
+
+**Example:**
+
+```bash
+tcpdump -i eth0
+```
+
+---
+
+## dmesg
+
+**Description:** Shows kernel log messages.
+
+**Key Options:**
+
+- `-T`: Human-readable timestamps.
+- `-L`: Colorizes output.
+- `-C`: Clears the buffer.
+
+**Example:**
+
+```bash
+dmesg -T
+```
+
+---
+
+## ssh
+
+**Description:** Connects to remote systems securely.
+
+**Key Options:**
+
+- `-p [port]`: Specifies port.
+- `-i [key]`: Uses an identity file.
+- `-X`: Enables X11 forwarding.
+
+**Example:**
+
+```bash
+ssh user@host
+```
+
+---
+
+## scp
+
+**Description:** Copies files between hosts securely.
+
+**Key Options:**
+
+- `-P [port]`: Specifies port.
+- `-r`: Copies recursively.
+- `-i [key]`: Uses an identity file.
+
+**Example:**
+
+```bash
+scp file user@host:/path
+```
+
+---
+
+## ping
+
+**Description:** Tests network connectivity.
+
+**Key Options:**
+
+- `-c [count]`: Limits packet count.
+- `-i [seconds]`: Sets interval between pings.
+- `-s [size]`: Sets packet size.
+
+**Example:**
+
+```bash
+ping -c 4 8.8.8.8
+```
+
+---
+
+## cat
+
+**Description:** Displays file contents.
+
+**Key Options:**
+
+- `-n`: Numbers lines.
+- `-b`: Numbers non-blank lines.
+- `-s`: Squeezes multiple blank lines.
+
+**Example:**
+
+```bash
+cat file.txt
+```
+
+---
+
+## less
+
+**Description:** Views files page-by-page.
+
+**Key Options:**
+
+- `-N`: Shows line numbers.
+- `-S`: Chops long lines.
+- `-i`: Ignores case in searches.
+
+**Example:**
+
+```bash
+less file.txt
+```
+
+---
+
+## tail
+
+**Description:** Shows last lines of a file.
+
+**Key Options:**
+
+- `-n [lines]`: Shows specific number of lines.
+- `-f`: Follows file for new data.
+- `-q`: Suppresses headers.
+
+**Example:**
+
+```bash
+tail -f /var/log/syslog
+```
+
+---
+
+## head
+
+**Description:** Shows first lines of a file.
+
+**Key Options:**
+
+- `-n [lines]`: Shows specific number of lines.
+- `-c [bytes]`: Shows specific number of bytes.
+
+**Example:**
+
+```bash
+head -n 10 file.txt
+```
+
+---
+
+## sort
+
+**Description:** Sorts lines of text.
+
+**Key Options:**
+
+- `-r`: Reverses sort order.
+- `-n`: Numeric sort.
+- `-k [field]`: Sorts by specific field.
+
+**Example:**
+
+```bash
+sort file.txt
+```
+
+---
+
+## uniq
+
+**Description:** Removes duplicate lines from sorted input.
+
+**Key Options:**
+
+- `-c`: Counts occurrences.
+- `-i`: Ignores case.
+- `-u`: Shows unique lines only.
+
+**Example:**
+
+```bash
+sort file.txt | uniq
+```
+
+---
+
+## wc
+
+**Description:** Counts lines, words, and characters.
+
+**Key Options:**
+
+- `-l`: Counts lines.
+- `-w`: Counts words.
+- `-c`: Counts bytes.
+
+**Example:**
+
+```bash
+wc file.txt
+```
+
+---
+
+## sed
+
+**Description:** Edits text streams.
+
+**Key Options:**
+
+- `-i`: Edits file in place.
+- `-e [script]`: Adds script to execute.
+- `-n`: Suppresses automatic printing.
+
+**Example:**
+
+```bash
+sed 's/old/new/' file.txt
+```
+
+---
+
+## awk
+
+**Description:** Processes text patterns.
+
+**Key Options:**
+
+- `-F [sep]`: Sets field separator.
+- `-v [var=value]`: Assigns variables.
+- `-f [file]`: Reads script from file.
+
+**Example:**
+
+```bash
+awk '{print $1}' file.txt
+```
+
+---
+
+## mount
+
+**Description:** Mounts filesystems.
+
+**Key Options:**
+
+- `-t [type]`: Specifies filesystem type.
+- `-o [options]`: Sets mount options (e.g., `ro`).
+
+**Example:**
+
+```bash
+mount /dev/sda1 /mnt
+```
+
+---
+
+## umount
+
+**Description:** Unmounts filesystems.
+
+**Key Options:**
+
+- `-l`: Lazy unmount.
+- `-f`: Forces unmount.
+
+**Example:**
+
+```bash
+umount /mnt
+```
+
+---
+
+## rsync
+
+**Description:** Syncs files efficiently.
+
+**Key Options:**
+
+- `-a`: Archive mode (preserves attributes).
+- `-v`: Verbose output.
+- `-r`: Recursive copy.
+
+**Example:**
+
+```bash
+rsync -av src/ dest/
+```
+
+---
+
+## crontab
+
+**Description:** Schedules recurring tasks.
+
+**Key Options:**
+
+- `-e`: Edits crontab file.
+- `-l`: Lists crontab entries.
+- `-r`: Removes crontab.
+
+**Example:**
+
+```bash
+crontab -e
+```
+
+---
+
+## kill
+
+**Description:** Terminates processes by PID.
+
+**Key Options:**
+
+- `-9`: Sends SIGKILL (forceful termination).
+- `-l`: Lists signal names.
+
+**Example:**
+
+```bash
+kill 1234
+```
+
+---
+
+## watch
+
+**Description:** Runs commands repeatedly.
+
+**Key Options:**
+
+- `-n [seconds]`: Sets interval.
+- `-d`: Highlights changes.
+
+**Example:**
+
+```bash
+watch -n 2 df -h
+```
+
+---
+
+## screen
+
+**Description:** Manages terminal sessions.
+
+**Key Options:**
+
+- `-r`: Reattaches to a session.
+- `-ls`: Lists sessions.
+- `-d`: Detaches a session.
+
+**Example:**
+
+```bash
+screen
+```
+
+---
+
+## htop
+
+**Description:** Enhanced process viewer.
+
+**Key Options:**
+
+- `-d [delay]`: Sets refresh interval.
+- `-u [user]`: Filters by user.
+- `-s [column]`: Sorts by column.
+
+**Example:**
+
+```bash
+htop
+```
+
+---
+
+## free
+
+**Description:** Shows memory usage.
+
+**Key Options:**
+
+- `-m`: Shows in MB.
+- `-h`: Human-readable format.
+- `-s [seconds]`: Continuous output.
+
+**Example:**
+
+```bash
+free -m
+```
+
+---
+
+## who
+
+**Description:** Lists logged-in users.
+
+**Key Options:**
+
+- `-a`: Shows all information.
+- `-u`: Shows idle time.
+- `-H`: Adds headers.
+
+**Example:**
+
+```bash
+who
+```
+
+---
+
+## uptime
+
+**Description:** Shows system uptime and load average.
+
+**Key Options:**
+
+- `-p`: Pretty format for uptime.
+- `-s`: Shows since time.
+
+**Example:**
+
+```bash
+uptime
+```
+
+---
