@@ -261,3 +261,20 @@ networks:
 - none - отключение сети для контейнеров 
 - macvlan - прямое назначение MAC-адреса контейнеру
 
+
+Docker run
+
+```
+docker run -d \
+  --name postgres_gazprom \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=12345 \
+  -e POSTGRES_DB=gazprom_db \
+  -v pg_data_gazprom:/var/lib/postgresql/data \
+  -p 5435:5432 \
+  --restart unless-stopped \
+  postgres:latest
+
+
+psql -U postgres -d postgres
+```
