@@ -278,3 +278,22 @@ docker run -d \
 
 psql -U postgres -d postgres
 ```
+
+docker secrets
+
+docker scout
+
+best practices for security
+1. scan image (docker scout, trivy)
+2. docker linter (hadolint)
+3. limit memory, cpus
+4. run from not root user (USER www dockerfile, --user www)
+5. 
+```bash
+–security-opt=no-new-privileges:true
+```
+
+```bash
+--read-only
+```
+
