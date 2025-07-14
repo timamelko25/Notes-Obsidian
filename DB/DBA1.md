@@ -781,3 +781,106 @@ select * from t; # error
 show search_path;
 ```
 - временные таблицы - существуют на уровне сеанса или транзакции, не журналируются, не попадают в общий буферный кеш (используется локальный). Доступ к временным таблицам организован с помощью схем. Для сеанса создается временная схема с именем pg_temp_N, обращение идет по имени pg_temp (без номера) - для каждого сеанса это имя ссылается на конкретную временную схему. Если pg_temp нет в пути, то эта схему просматривается перед всеми остальными.
+
+## Системный каталог
+
+Системный каталог - информация об объектах кластера, содержащаяся внутри кластера. Представляет собой набор таблиц и представлений с описанием всех объектов СУБД.
+
+Все таблицы и представления системного каталога находятся в схеме `pg_catalog` (или information_schema по стандарту SQL)
+
+Схема основных таблиц системного каталога
+![[Pasted image 20250715000131.png]]
+
+
+![[Pasted image 20250715000302.png]]
+
+В каждой базе данный кластера создается свой набор таблиц системного каталога. Существует несколько объектов каталога, которые являются общими всего кластера (список самих бд). Эти объекты хранятся вне бд, в директории PGDATA.
+
+Все таблицы системного каталога начинаются с префикса `pg_`. Названия столбцов имеют трехбуквенный префикс, который, как правило соответствует имени таблицы. Хранятся в нижнем регистре.
+
+Таблицы системного каталога
+
+```
+select * from pg_database where datname = 'data_catalog' # базы данных
+
+select * from pg_namespace where nspname = 'public' # схемы
+
+SELECT relname, relkind, relnamespace, relfilenode, relowner, relpersistence
+FROM pg_class WHERE relname ~ '^(emp|top)';
+```
+
+pg_class хранит таблицы, представления, индексы, последовательности. Все эти объекты называются relation (отношение)
+
+relkind - тип объекта
+relpersistence - временный или постоянный объект
+
+Удобнее смотреть на названия соответствующих объектов
+
+```
+SELECT schemaname, tablename, tableowner
+FROM pg_tables WHERE schemaname ~ '(public|pg_temp.+)';
+
+SELECT *
+FROM pg_views WHERE schemaname = 'public';
+```
+
+\dt - список таблиц
+\dv public.* - список всех представлений в схеме public
+\dtvis - список таблиц, представлений, индексов и последовательностей
+\dn - схемы
+\df - функции
+
+Можно дополнить + для получения дополнительной информации
+
+\dtS pg\*size - получить системные объекты и пользовательские с ограниченной выборкой
+
+\sf - получить описание функции
+
+```
+\sf pg_catalog.pg_database_size(oid)
+
+
+CREATE OR REPLACE FUNCTION pg_catalog.pg_database_size(oid)
+RETURNS bigint
+LANGUAGE internal
+PARALLEL SAFE STRICT
+AS $function$pg_database_size_oid$function$
+```
+
+Все команды psql, описывающие объекты, обращаются к таблицам системного каталога. Чтобы увидеть запросы
+
+```
+\set ECHO_HIDDEN on
+```
+
+
+Специальные типы данных
+
+Большинство таблиц системного каталога используют в качестве первичного ключа столбец с именем oid и одноименным типом данных
+
+oid (object identifier) - целочисленный тип данных с разрядностью 32 бита и автоинкрементом.
+
+Специальный тип данных reg\*, которые позволяют преобразовывать имена объектов в oid и обратно
+
+```
+SELECT a.attname, a.atttypid
+FROM pg_attribute a
+WHERE a.attrelid = (
+SELECT oid FROM pg_class WHERE relname = 'employees'
+)
+AND a.attnum > 0;
+
+SELECT a.attname, a.atttypid
+FROM pg_attribute a
+WHERE a.attrelid = 'employees'::regclass
+AND a.attnum > 0;
+
+SELECT a.attname, a.atttypid::regtype
+FROM pg_attribute a
+WHERE a.attrelid = 'employees'::regclass
+AND a.attnum > 0;
+```
+
+\dT reg* - полный список reg-типов
+
+## Табличные пространства
